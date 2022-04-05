@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import Counter from './Components/Counter';
+import PostForm from './Components/PostForm';
 import PostList from './Components/PostList';
-import MyButton from './Components/UI/Buttons/MyButton'
-import MyInput from './Components/UI/Input/MyInput'
+
 
 function App() {
   const [posts,setPosts] = useState ([    // нахера нужен setPosts но без него не работает!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -12,29 +12,21 @@ function App() {
   ])
 
 
-   const [title,setTitlee] = useState()
-  
-   const [body, setBody] = useState()
-
+  //  const [title,setTitlee] = useState('')
+  //  const [body, setBody] = useState('')
+ 
   // const bodyInputRef = useRef() //не управляемый компонент
 
-   const addNewPost = (e) => {
-     e.preventDefault()
-     console.log(e)
-     // console.log(bodyInputRef.current.value)
-    }
+   const createPost = (newPost) => {
+      setPosts([...posts, newPost])
+   }
 
   return (
     <div className="App">
       <Counter/>
-      <br/>
-      <form>
-        {/* управляемый компонент */}
-        <MyInput value={title} onChange={e => setTitlee(e.target.value)} type="text" placeholder="Название постааа"/>
-        <MyInput value={body} onChange={e => setBody(e.target.value)} type="text" placeholder="описаниее постааа"/>
-        {/* <MyInput ref={bodyInputRef} type="text" placeholder="Описание поста"/> Не управляемый компонент */}
-        <MyButton onClick={addNewPost}>Типа название кнопки</MyButton>
-      </form>
+      
+      <PostForm create={createPost}/>
+
       <PostList posts={posts} title="dasdaaaasdssss"/>
         {/* <Postitem post={{id:1, title: 'Javascript', body: 'Descriptions'}} />   */}
     </div>
